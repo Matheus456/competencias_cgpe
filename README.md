@@ -9,7 +9,7 @@ source myvenv/bin/activate
 ```
 ### Rodar o comando para instalar as dependências:
 ```
-pip install requirements.py
+pip install -r requirements.txt
 ```
 ### Rodar o comando para criar as tabelas no banco de dados:
 ```
