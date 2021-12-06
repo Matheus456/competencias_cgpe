@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+  th {
+    text-align: center;
+  }
+  .centraliza-inputs {
+    text-align: center;
+  }
+  .table-bordered > tbody > tr > th {
+     border: 1px solid #577787;
+  }
+  table.table-bordered{
+    border:1px solid #577787!important;
+    margin-top:20px;
+  }
+  table.table-bordered > thead > tr > th{
+      border:1px solid #577787!important;
+  }
+  table.table-bordered > tbody > tr > td{
+      border:1px solid #577787!important;
+  }
+  .dot {
+    height: 8px;
+    width: 8px;
+    margin-bottom: 0.1em;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+  }
+</style>
+<html>
+  <body>
+  <div style="margin-left: 2em; margin-top: 1em;">
+    <h2>
+      Olá, <span style="color: red">{{colaborador.nome}}</span>!
+    </h2>
+    <h2>
+      Sua área principal é <span style="color: red">{{colaborador.area.nome}}.</span>
+    </h2>
+
+    <h5>
+      Abaixo estão as competências mapeadas para sua área extraídas de seu currículo.
+      Por favor, defina o seu nível de conhecimento para cada competência.
+    </h5>
+    
+    <div style="margin-top:3em; margin-left: 4em;">
+      <table class="table table-bordered" style="width: 70%; font-size: 0.8em;">
+        <tr>
+          <th style="vertical-align: middle; font-size: 1.4em;" rowspan="2">Competência</th>
+          <th colspan="4">Nível Conhecimento</th>
+        </tr>
+        <tr>
+          <th>Nenhum</th>
+          <th>Básico</th>
+          <th>Interm.</th>
+          <th>Pleno</th>
+        </tr>
+        {% for colaborador_soft in colaborador_softs %}
+          <tr>
+            <td class=><span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{colaborador_soft.soft_skill.nome}}</span></td>
+            <input type="hidden" name="soft_skill" value="{{ colaborador_soft.soft_skill.id }}"/>
+            <td class='centraliza-inputs'>
+                <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=0>
+            </td>
+            <td class='centraliza-inputs'>
+              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=1>
+            </td>
+            <td class='centraliza-inputs'>
+              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=2>
+            </td>
+            <td class='centraliza-inputs'>
+              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=3>
+            </td>
+          </tr>
+        {% endfor %}
+        {% for colaborador_hard in colaborador_hards %}
+        <tr>
+          <td><span class="dot" style="background-color: red"></span><span style="margin-left: 1em;">{{colaborador_hard.hard_skill.nome}}</span></td>
+          <input type="hidden" name="hard_skill" value="{{ colaborador_hard.hard_skill.id }}"/>
+
+          <td class='centraliza-inputs'>
+              <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=0>
+          </td>
+          <td class='centraliza-inputs'>
+            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=1>
+          </td>
+          <td class='centraliza-inputs'>
+            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=2>
+          </td>
+          <td class='centraliza-inputs'>
+            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=3>
+          </td>
+        </tr>
+      {% endfor %}
+
+      </table>
+    </div>
+      <input type="submit" value="Salvar">  
+    </form> 
+  </div>
+
+  </body>
+</html>
+
+

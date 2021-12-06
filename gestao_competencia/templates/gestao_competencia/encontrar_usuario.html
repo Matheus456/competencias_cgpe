@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{% if mensagem %}
+    <h2 class="ui dividing header">{{ mensagem }}</h2>
+{% endif %}
+
+<form action="/">
+  <label for="fname">email:</label><br>
+  <input required type="text" id="email" name="email"><br><br>
+  <input type="submit" value="Submit">  
+</form> 
+
+
+</body>
+</html>
+
