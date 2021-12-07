@@ -11,24 +11,21 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.environ.get('SECRET_KEY', default='foo')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-16)$!bjk459@dl5_e6w1=a-(+_%#!#%ozvo^)(!47c_8y3*1h_'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.pythonanywhere.com']
+os.environ['DJANGO_SUPERUSER_PASSWORD'] = '123456789'
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# Application definition
+# Application definition.env
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gestao_competencia',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -48,7 +46,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True   
 
 ROOT_URLCONF = 'competencias_cgpe.urls'
 

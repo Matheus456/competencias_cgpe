@@ -35,75 +35,75 @@
 </style>
 <html>
   <body>
-  <div style="margin-left: 2em; margin-top: 1em;">
-    <h2>
-      Olá, <span style="color: red">{{colaborador.nome}}</span>!
-    </h2>
-    <h2>
-      Sua área principal é <span style="color: red">{{colaborador.area.nome}}.</span>
-    </h2>
+    <div style="margin-left: 2em; margin-top: 1em;">
+      <h2>
+        Olá, <span style="color: red">{{colaborador.nome}}</span>!
+      </h2>
+      <h2>
+        Sua área principal é <span style="color: red">{{colaborador.area.nome}}.</span>
+      </h2>
 
-    <h5>
-      Abaixo estão as competências mapeadas para sua área extraídas de seu currículo.
-      Por favor, defina o seu nível de conhecimento para cada competência.
-    </h5>
+      <h5>
+        Abaixo estão as competências mapeadas para sua área extraídas de seu currículo.
+        Por favor, defina o seu nível de conhecimento para cada competência.
+      </h5>
+      
+      <div style="margin-top:3em; margin-left: 4em;">
+        <form action="avaliar_competencias">
+          <table class="table table-bordered" style="width: 70%; font-size: 0.8em;">
+            <tr>
+              <th style="vertical-align: middle; font-size: 1.4em;" rowspan="2">Competência</th>
+              <th colspan="4">Nível Conhecimento</th>
+            </tr>
+            <tr>
+              <th>Nenhum</th>
+              <th>Básico</th>
+              <th>Interm.</th>
+              <th>Pleno</th>
+            </tr>
+            {% for colaborador_soft in colaborador_softs %}
+              <tr>
+                <td class=><span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{colaborador_soft.soft_skill.nome}}</span></td>
+                <input type="hidden" name="soft_skill" value="{{ colaborador_soft.soft_skill.id }}"/>
+                <td class='centraliza-inputs'>
+                    <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=0>
+                </td>
+                <td class='centraliza-inputs'>
+                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=1>
+                </td>
+                <td class='centraliza-inputs'>
+                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=2>
+                </td>
+                <td class='centraliza-inputs'>
+                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=3>
+                </td>
+              </tr>
+            {% endfor %}
+            {% for colaborador_hard in colaborador_hards %}
+            <tr>
+              <td><span class="dot" style="background-color: red"></span><span style="margin-left: 1em;">{{colaborador_hard.hard_skill.nome}}</span></td>
+              <input type="hidden" name="hard_skill" value="{{ colaborador_hard.hard_skill.id }}"/>
     
-    <div style="margin-top:3em; margin-left: 4em;">
-      <table class="table table-bordered" style="width: 70%; font-size: 0.8em;">
-        <tr>
-          <th style="vertical-align: middle; font-size: 1.4em;" rowspan="2">Competência</th>
-          <th colspan="4">Nível Conhecimento</th>
-        </tr>
-        <tr>
-          <th>Nenhum</th>
-          <th>Básico</th>
-          <th>Interm.</th>
-          <th>Pleno</th>
-        </tr>
-        {% for colaborador_soft in colaborador_softs %}
-          <tr>
-            <td class=><span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{colaborador_soft.soft_skill.nome}}</span></td>
-            <input type="hidden" name="soft_skill" value="{{ colaborador_soft.soft_skill.id }}"/>
-            <td class='centraliza-inputs'>
-                <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=0>
-            </td>
-            <td class='centraliza-inputs'>
-              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=1>
-            </td>
-            <td class='centraliza-inputs'>
-              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=2>
-            </td>
-            <td class='centraliza-inputs'>
-              <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=3>
-            </td>
-          </tr>
-        {% endfor %}
-        {% for colaborador_hard in colaborador_hards %}
-        <tr>
-          <td><span class="dot" style="background-color: red"></span><span style="margin-left: 1em;">{{colaborador_hard.hard_skill.nome}}</span></td>
-          <input type="hidden" name="hard_skill" value="{{ colaborador_hard.hard_skill.id }}"/>
-
-          <td class='centraliza-inputs'>
-              <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=0>
-          </td>
-          <td class='centraliza-inputs'>
-            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=1>
-          </td>
-          <td class='centraliza-inputs'>
-            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=2>
-          </td>
-          <td class='centraliza-inputs'>
-            <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=3>
-          </td>
-        </tr>
-      {% endfor %}
-
-      </table>
+              <td class='centraliza-inputs'>
+                  <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=0>
+              </td>
+              <td class='centraliza-inputs'>
+                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=1>
+              </td>
+              <td class='centraliza-inputs'>
+                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=2>
+              </td>
+              <td class='centraliza-inputs'>
+                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=3>
+              </td>
+            </tr>
+          {% endfor %}
+          
+        </table>
+        <input type="submit" value="Salvar">  
+      </form> 
+      </div>
     </div>
-      <input type="submit" value="Salvar">  
-    </form> 
-  </div>
-
   </body>
 </html>
 
