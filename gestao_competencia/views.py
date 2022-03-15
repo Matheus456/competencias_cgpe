@@ -15,8 +15,8 @@ def encontrar_usuario(request):
 
 def formulario_competencias(request, id):
     colaborador = Colaborador.objects.get(id=id)
-    colaborador_soft = ColaboradorSoftSkill.objects.filter(colaborador= colaborador)
-    colaborador_hard = ColaboradorHardSkill.objects.filter(colaborador= colaborador)
+    colaborador_soft = ColaboradorSoftSkill.objects.filter(colaborador=colaborador)
+    colaborador_hard = ColaboradorHardSkill.objects.filter(colaborador=colaborador)
     return render(request, 'gestao_competencia/form_competencias.html', {'colaborador': colaborador,'colaborador_softs': colaborador_soft, 'colaborador_hards': colaborador_hard})
 
 def avaliar_compentecias(request, id):

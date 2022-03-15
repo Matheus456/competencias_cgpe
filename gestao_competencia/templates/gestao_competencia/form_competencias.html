@@ -65,37 +65,22 @@
               <tr>
                 <td class=><span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{colaborador_soft.soft_skill.nome}}</span></td>
                 <input type="hidden" name="soft_skill" value="{{ colaborador_soft.soft_skill.id }}"/>
-                <td class='centraliza-inputs'>
-                    <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=0>
-                </td>
-                <td class='centraliza-inputs'>
-                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=1>
-                </td>
-                <td class='centraliza-inputs'>
-                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=2>
-                </td>
-                <td class='centraliza-inputs'>
-                  <input required type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value=3>
-                </td>
+                {% for i in '0123'|make_list %}
+                  <td class='centraliza-inputs'>
+                    <input required {% if i == colaborador_soft.score_soft|slugify %} checked="checked" {% endif %} type="radio" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value="{{i}}">
+                  </td>
+                {% endfor %}
               </tr>
             {% endfor %}
             {% for colaborador_hard in colaborador_hards %}
             <tr>
               <td><span class="dot" style="background-color: red"></span><span style="margin-left: 1em;">{{colaborador_hard.hard_skill.nome}}</span></td>
               <input type="hidden" name="hard_skill" value="{{ colaborador_hard.hard_skill.id }}"/>
-    
+              {% for i in '0123'|make_list %}
               <td class='centraliza-inputs'>
-                  <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=0>
-              </td>
-              <td class='centraliza-inputs'>
-                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=1>
-              </td>
-              <td class='centraliza-inputs'>
-                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=2>
-              </td>
-              <td class='centraliza-inputs'>
-                <input required type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value=3>
-              </td>
+                    <input required {% if i == colaborador_hard.score_hard|slugify %} checked="checked" {% endif %} type="radio" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value="{{i}}">
+                </td>
+              {% endfor %}
             </tr>
           {% endfor %}
           
