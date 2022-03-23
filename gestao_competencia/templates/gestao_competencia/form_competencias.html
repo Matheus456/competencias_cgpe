@@ -83,50 +83,17 @@
       
       <div style="margin-top:3em; margin-left: 4em;">
         <form action="avaliar_competencias">
-          <table class="table table-bordered" style="width: 70%; font-size: 0.8em;">
-            <tr>
-              <th style="vertical-align: middle; font-size: 1.4em;" rowspan="2">Competência</th>
-              <th colspan="4">Nível Conhecimento</th>
-            </tr>
-            <tr>
-              <th>Nenhum</th>
-              <th>Básico</th>
-              <th>Interm.</th>
-              <th>Pleno</th>
-            </tr>
-            {% for colaborador_soft in colaborador_softs %}
-              <tr>
-                <td class=><span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{colaborador_soft.soft_skill.nome}}</span></td>
-                <input type="hidden" name="soft_skill" value="{{ colaborador_soft.soft_skill.id }}"/>
-                {% for i in '0123'|make_list %}
-                  <td class='centraliza-inputs'>
-                    <input required {% if i == colaborador_soft.score_soft|slugify %} checked="checked" {% endif %} type="radio" id="soft_skill-{{ colaborador_soft.soft_skill.id }}-{{i}}" name="soft_skill-{{ colaborador_soft.soft_skill.id }}" value="{{i}}">
-                    <label for="soft_skill-{{ colaborador_soft.soft_skill.id }}-{{i}}">
-                      <image class="emoji-style" src="{% static 'images/emojis/emoji-'|add:i|add:'.png' %}" width="40" height="40"></i>
-                    </label>
-                  </td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
+          
+          {% for colaborador_soft in colaborador_softs %}
+            {% include "./_input_emojis.html" with tipo='soft' nome=colaborador_soft.soft_skill.nome id=colaborador_soft.soft_skill.id score=colaborador_soft.score_soft %}
+          {% endfor %}
 
-            {% for colaborador_hard in colaborador_hards %}
-            <tr>
-              <td><span class="dot" style="background-color: red"></span><span style="margin-left: 1em;">{{colaborador_hard.hard_skill.nome}}</span></td>
-              <input type="hidden" name="hard_skill" value="{{ colaborador_hard.hard_skill.id }}"/>
-              {% for i in '0123'|make_list %}
-              <td class='centraliza-inputs'>
-                    <input required {% if i == colaborador_hard.score_hard|slugify %} checked="checked" {% endif %} type="radio" id="hard_skill-{{ colaborador_hard.hard_skill.id }}-{{i}}" name="hard_skill-{{ colaborador_hard.hard_skill.id }}" value="{{i}}">
-                    <label for="hard_skill-{{ colaborador_hard.hard_skill.id }}-{{i}}">
-                      <image class="emoji-style" src="{% static 'images/emojis/emoji-'|add:i|add:'.png' %}" width="40" height="40"></i>
-                    </label>
-              </td>
-              {% endfor %}
-            </tr>
+          {% for colaborador_hard in colaborador_hards %}
+            {% include "./_input_emojis.html" with tipo='hard' nome=colaborador_hard.hard_skill.nome id=colaborador_hard.hard_skill.id score=colaborador_hard.score_hard %}
           {% endfor %}
           
-        </table>
-        <input type="submit" value="Salvar">  
-      </form> 
+          <input type="submit" value="Salvar">  
+        </form> 
       </div>
     </div>
   </body>
