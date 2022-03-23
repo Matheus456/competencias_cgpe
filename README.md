@@ -1,4 +1,4 @@
-# competencias_cgpe
+# core
 
 ### Instalar o virtualenv
 
