@@ -20,17 +20,13 @@ def formulario_competencias(request, id):
     return render(request, 'gestao_competencia/form_competencias.html', {'colaborador': colaborador,'colaborador_softs': colaborador_soft, 'colaborador_hards': colaborador_hard})
 
 def avaliar_compentecias(request, id):
-    soft_skills = request.GET.getlist('soft_skill')
-    a_soft_skills = {a: request.GET['soft_skill-{}'.format(a)] for a in soft_skills}
-    for key in a_soft_skills:
-        colaborador_soft = ColaboradorSoftSkill.objects.filter(soft_skill=key, colaborador=id)
-        colaborador_soft.update(score_soft=a_soft_skills[key])
-    
-    hard_skills = request.GET.getlist('hard_skill')
-    a_hard_skills = {a: request.GET['hard_skill-{}'.format(a)] for a in hard_skills}
-    for key in a_hard_skills:
-        colaborador_soft = ColaboradorHardSkill.objects.filter(hard_skill=key, colaborador=id)
-        colaborador_soft.update(score_hard=a_hard_skills[key])
-
+    _atualiza_skills(request, 'soft_skill', ColaboradorSoftSkill, 'score_soft', id)
+    _atualiza_skills(request, 'hard_skill', ColaboradorHardSkill, 'score_hard', id)
     return render(request, 'gestao_competencia/agradecimento.html', {})
 
+def _atualiza_skills(request, tipo, classe, campo, id_colaorador):
+    skills = request.GET.getlist(tipo)
+    skills_a = {a: request.GET[tipo + "-{}".format(a)] for a in skills}
+    for key in skills_a:
+        colaborador = classe.objects.filter(**{tipo: key}, colaborador=id_colaorador)
+        colaborador.update(**{campo: skills_a[key]})
