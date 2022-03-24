@@ -1,72 +1,20 @@
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-<!DOCTYPE html>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <style>
-  th {
-    text-align: center;
-  }
-  .centraliza-inputs {
-    text-align: center;
-  }
-  .table-bordered > tbody > tr > th {
-     border: 1px solid #577787;
-  }
-  table.table-bordered{
-    border:1px solid #577787!important;
-    margin-top:20px;
-  }
-  table.table-bordered > thead > tr > th{
-      border:1px solid #577787!important;
-  }
-  table.table-bordered > tbody > tr > td{
-      border:1px solid #577787!important;
-  }
-  .dot {
-    height: 8px;
-    width: 8px;
-    margin-bottom: 0.1em;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  input[type="radio"]{
-    -webkit-appearance: none;
-  }
-
-  input[type="radio"]:checked + label{
-    background-color: #ffd60f;
-    color: white;
-    box-shadow: 0 15px 45px rgba(249, 241, 24, 0.2);
-  }
-
-  .emoji-style{
-    margin-top: 0.5em;
-  }
-
-  label{
-    height: 5em;
-    width: 5em;
-    border:6px solid #ffd60f;
-    position: relative;
-    margin: auto;
-    border-radius: 20px;
-    color: #ffd60f;
-    transition: 0.5s;
-  }
-
-  label>span{
-    transform: translate(-50%,80%);
+  .form-container {
+    margin-top:3em;
+    margin-left: 4em;
+    border: 1px solid #01579B;
+    max-height: 40em;
+    max-width: 105em;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 </style>
+
 <html>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css">
   <body>
     <div style="margin-left: 2em; margin-top: 1em;">
       <h2>
@@ -81,15 +29,16 @@
         Por favor, defina o seu nível de conhecimento para cada competência.
       </h5>
       
-      <div style="margin-top:3em; margin-left: 4em;">
+      <div class="form-container">
         <form action="avaliar_competencias">
           
-          {% for colaborador_soft in colaborador_softs %}
-            {% include "./_input_emojis.html" with tipo='soft' nome=colaborador_soft.soft_skill.nome id=colaborador_soft.soft_skill.id score=colaborador_soft.score_soft %}
+          {% for skill in colaborador_softs %}
+            {{skill.skill}}
+            {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft %}
           {% endfor %}
 
-          {% for colaborador_hard in colaborador_hards %}
-            {% include "./_input_emojis.html" with tipo='hard' nome=colaborador_hard.hard_skill.nome id=colaborador_hard.hard_skill.id score=colaborador_hard.score_hard %}
+          {% for skill in colaborador_hards %}
+            {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard %}
           {% endfor %}
           
           <input type="submit" value="Salvar">  

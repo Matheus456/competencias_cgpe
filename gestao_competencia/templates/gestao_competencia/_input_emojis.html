@@ -1,16 +1,65 @@
 {% load static %}
 
-<div class="row">
-    <div class="col-2">
-      <span class="dot" style="background-color: blue"></span><span style="margin-left: 1em;">{{nome}}</span>
-    </div>
-    <input type="hidden" name="{{tipo}}_skill" value="{{ id }}"/>
-    {% for i in '0123'|make_list %}
-      <div class="col-2">
-        <input required {% if i == score|slugify %} checked="checked" {% endif %} type="radio" id="{{tipo}}_skill-{{ id }}-{{i}}" name="{{tipo}}_skill-{{ id }}" value="{{i}}">
-        <label for="{{tipo}}_skill-{{ id }}-{{i}}">
-          <image class="emoji-style" src="{% static 'images/emojis/emoji-'|add:i|add:'.png' %}" width="40" height="40"></i>
-        </label>
+<style>
+  input[type="radio"] {
+    -webkit-appearance: none;
+  }
+
+  input[type="radio"]:checked+label {
+    background-color: #ffd60f;
+    color: white;
+    box-shadow: 0 15px 45px rgba(249, 241, 24, 0.2);
+  }
+
+  label {
+    height: 5em;
+    width: 5em;
+    border: 6px solid #ffd60f;
+    position: relative;
+    margin: auto;
+    border-radius: 20px;
+    color: #ffd60f;
+    transition: 0.5s;
+  }
+
+  label>span {
+    transform: translate(-50%, 80%);
+  }
+
+  span {
+    color: #01579B;
+  }
+
+  .col-1-5 {
+    flex: 0 0 12.3%;
+    max-width: 12.3%;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+</style>
+
+<div class="row" style="margin-top: 2em;">
+  <div class="col-4">
+    <div class="row" style="height: 4.3em; margin-left: 10em;">
+      <div class="align-self-center">
+        <span style="margin-left: 1em;">{{nome}}</span>
       </div>
-    {% endfor %}
+    </div>
+  </div>
+  <input type="hidden" name="{{tipo}}_skill" value="{{ id }}" />
+  {% for i in '01234'|make_list %}
+    <div class="col-1-5">
+      <input required {% if i == score|slugify %} checked="checked" {% endif %} type="radio" id="{{tipo}}_skill-{{ id }}-{{i}}" name="{{tipo}}_skill-{{ id }}" value="{{i}}">
+      <label for="{{tipo}}_skill-{{ id }}-{{i}}">
+        <div class="row justify-content-center" style="height: 4.3em;">
+          <div class="align-self-center">
+            <image src="{% static 'images/emojis/emoji-'|add:i|add:'.png' %}" width="40" height="40"></i>
+          </div>
+        </div>
+      </label>
+    </div>
+  {% endfor %}
 </div>
+<hr/>
