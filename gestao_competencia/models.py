@@ -10,6 +10,15 @@ class Area(models.Model):
     def __str__(self):
         return self.nome
 
+class SubArea(models.Model):
+    id =  models.CharField(primary_key=True, max_length=255, unique=True)
+    nome = models.TextField()
+    area = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL)
+    
+    def __str__(self):
+        return self.nome
+
+
 class SoftSkill(models.Model):
     nome = models.TextField()
     area = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL)
@@ -21,16 +30,22 @@ class SoftSkill(models.Model):
 class HardSkill(models.Model):
     nome = models.TextField()
     area = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL)
+    subarea = models.ForeignKey(SubArea, null=True, on_delete=models.SET_NULL)
     id =  models.CharField(primary_key=True, max_length=255, unique=True)
 
     def __str__(self):
         return self.nome
+
+class Startup(models.Model):
+    id =  models.CharField(primary_key=True, max_length=255, unique=True)
+    nome = models.TextField()
 
 class Colaborador(models.Model):
     id =  models.CharField(primary_key=True, max_length=255, unique=True)
     nome = models.TextField()
     email = models.TextField()
     area = models.ForeignKey(Area, null=True, on_delete=models.SET_NULL)
+    startup = models.ForeignKey(Startup, null=True, on_delete=models.SET_NULL)
     hard_skills = models.ManyToManyField(HardSkill, through='ColaboradorHardSkill')
     soft_skills = models.ManyToManyField(SoftSkill, through='ColaboradorSoftSkill')
 
@@ -51,4 +66,4 @@ class ColaboradorSoftSkill(models.Model):
     score_soft = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.colaborador.nome + ' - ' + self.soft_skill.nome
+        return self.colaborador.nome + ' - ' + self.soft_skill.nome    
