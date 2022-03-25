@@ -16,7 +16,16 @@ def encontrar_usuario(request):
 def formulario_competencias(request, id):
     colaborador = Colaborador.objects.get(id=id)
     colaborador_soft = ColaboradorSoftSkill.objects.filter(colaborador=colaborador)
-    colaborador_hard = ColaboradorHardSkill.objects.filter(colaborador=colaborador)
+    colaborador_hard = ColaboradorHardSkill.objects.raw('''
+        SELECT * FROM gestao_competencia_colaboradorhardskill as colaborador_hs
+            INNER JOIN gestao_competencia_hardskill as hs
+                ON colaborador_hs.hard_skill_id=hs.id
+            INNER JOIN gestao_competencia_subarea as subarea
+                ON hs.subarea_id=subarea.id
+            WHERE colaborador_id = %s
+            ORDER BY subarea.nome
+        ''', [colaborador.id])
+
     return render(request, 'gestao_competencia/form_competencias.html', {'colaborador': colaborador,'colaborador_softs': colaborador_soft, 'colaborador_hards': colaborador_hard})
 
 def avaliar_compentecias(request, id):
