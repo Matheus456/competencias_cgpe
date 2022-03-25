@@ -1,24 +1,42 @@
 {% load static %}
+{% load custom_tags %}
 
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
 <style>
   .form-container {
-    margin-top:3em;
-    margin-left: 4em;
-    border: 1px solid #01579B;
-    max-height: 40em;
-    max-width: 105em;
+    margin-top:2em;
+    margin-left: 1em;
+    margin-right: 1em;
+    border: 3px solid #D6EAFC;
+    border-radius: 0.6em;
+    max-height: 43em;
     overflow-y: auto;
     overflow-x: hidden;
+  }
+  
+  .subclass-title {
+    color: #01579B;
+    font-size: 2em;
+    font-weight: bold;
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+  }
+
+  .btn-salvar {
+    background-color: #025ca4;
+    margin-top: 1em;
+    border-radius: 0.5em;
+    font-size: 1.4em;
   }
 </style>
 
 <html>
-  <body>
+  <body style="overflow-x: hidden;">
     <div style="margin-left: 2em; margin-top: 1em;">
       <h2>
-        Olá, <span style="color: red">{{colaborador.nome}}</span>!
+        Olá, <span style="color: red">{{colaborador.nome}}</span> da startup <span style="color: red">{{colaborador.startup.nome}}</span>!
       </h2>
       <h2>
         Sua área principal é <span style="color: red">{{colaborador.area.nome}}.</span>
@@ -30,19 +48,28 @@
       </h5>
       
       <div class="form-container">
-        <form action="avaliar_competencias">
+        <form action="avaliar_competencias" id="avaliar_competencias">
           
+          <h1 class="subclass-title">- Soft Skills</h1>
           {% for skill in colaborador_softs %}
-            {{skill.skill}}
             {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft %}
           {% endfor %}
-
-          {% for skill in colaborador_hards %}
-            {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard %}
-          {% endfor %}
           
-          <input type="submit" value="Salvar">  
+          {% with subarea="" %}
+            {% for skill in colaborador_hards %}
+              {% if subarea != skill.hard_skill.subarea.nome %}
+                <h1 class="subclass-title">-{{skill.hard_skill.subarea}}</h1>
+              {% endif %}
+              
+              {% update_value skill.hard_skill.subarea.nome as subarea %}
+              {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard %}
+            {% endfor %}
+          {% endwith %}
+          
         </form> 
+      </div>
+      <div class="row justify-content-center">
+        <button type="submit" form="avaliar_competencias" class="btn btn-primary btn-salvar">Salvar</button>
       </div>
     </div>
   </body>

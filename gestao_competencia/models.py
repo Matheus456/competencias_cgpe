@@ -66,4 +66,4 @@ class ColaboradorSoftSkill(models.Model):
     score_soft = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.colaborador.nome + ' - ' + self.soft_skill.nome    
+        return self.colaborador.nome + ' - ' + self.soft_skill.nome
