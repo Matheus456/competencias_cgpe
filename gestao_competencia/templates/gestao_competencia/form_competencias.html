@@ -1,3 +1,6 @@
+{% extends 'base/header.html' %}
+
+{% block content %}
 {% load static %}
 {% load custom_tags %}
 
@@ -5,54 +8,84 @@
 
 <style>
   .form-container {
-    margin-top:2em;
+    margin-top:1em;
     margin-left: 1em;
     margin-right: 1em;
     border: 3px solid #D6EAFC;
     border-radius: 0.6em;
-    max-height: 43em;
+    max-height: 45em;
     overflow-y: auto;
     overflow-x: hidden;
   }
   
   .subclass-title {
     color: #01579B;
-    font-size: 2em;
+    font-size: 1.4em;
     font-weight: bold;
     margin-left: 2em;
-    margin-top: 1em;
-    margin-bottom: 1.5em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
   }
 
   .btn-salvar {
     background-color: #025ca4;
-    margin-top: 1em;
+    margin-top: 0.5em;
     border-radius: 0.5em;
     font-size: 1.4em;
   }
+
+  .user-description {
+    font-size: 1.5em
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.6em;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px gray;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #025ca4; 
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #025ca4; 
+  }
+
+  .user-description-high {
+    color: #01579B;
+    text-decoration: underline;
+  }
 </style>
-
-<html>
-  <body style="overflow-x: hidden;">
+  <body style="overflow: hidden;">
     <div style="margin-left: 2em; margin-top: 1em;">
-      <h2>
-        Olá, <span style="color: red">{{colaborador.nome}}</span> da startup <span style="color: red">{{colaborador.startup.nome}}</span>!
-      </h2>
-      <h2>
-        Sua área principal é <span style="color: red">{{colaborador.area.nome}}.</span>
-      </h2>
-
-      <h5>
-        Abaixo estão as competências mapeadas para sua área extraídas de seu currículo.
-        Por favor, defina o seu nível de conhecimento para cada competência.
-      </h5>
+      <div class="row justify-content-center">
+        <h2 class="user-description">
+          Olá, <span class="user-description-high">{{colaborador.nome}}</span> da startup <span class="user-description-high">{{colaborador.startup.nome}}</span>!
+          Sua área principal é <span class="user-description-high">{{colaborador.area.nome}}.</span>
+        </h2>
+      </div>
+  
+        <div class="row" style="margin-left: 2em;">
+          <h7 style="color: red; font-weight: bold;">
+            - Abaixo estão as competências mapeadas para sua área extraídas, a partir do seu currículo. Por favor, defina o seu nível de conhecimento para cada competência.
+          </h7>
+        </div>
       
       <div class="form-container">
         <form action="avaliar_competencias" id="avaliar_competencias">
           
           <h1 class="subclass-title">- Soft Skills</h1>
           {% for skill in colaborador_softs %}
-            {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft %}
+            {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft subtitles=subtitles_default %}
+
           {% endfor %}
           
           {% with subarea="" %}
@@ -62,7 +95,7 @@
               {% endif %}
               
               {% update_value skill.hard_skill.subarea.nome as subarea %}
-              {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard %}
+              {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard subtitles=subtitles_default %}
             {% endfor %}
           {% endwith %}
           
@@ -73,6 +106,6 @@
       </div>
     </div>
   </body>
-</html>
+{% endblock content %}
 
 
