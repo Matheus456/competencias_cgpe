@@ -26,7 +26,12 @@ def formulario_competencias(request, id):
             ORDER BY subarea.nome
         ''', [colaborador.id])
 
-    return render(request, 'gestao_competencia/form_competencias.html', {'colaborador': colaborador,'colaborador_softs': colaborador_soft, 'colaborador_hards': colaborador_hard})
+    return render(request, 'gestao_competencia/form_competencias.html', {
+        'colaborador': colaborador,
+        'colaborador_softs': colaborador_soft,
+        'colaborador_hards': colaborador_hard,
+        'subtitles_default': ["Nenhuma Experiência", "", "Alguma Experiência", "", "Bastante Experiência"]
+    })
 
 def avaliar_compentecias(request, id):
     _atualiza_skills(request, 'soft_skill', ColaboradorSoftSkill, 'score_soft', id)
