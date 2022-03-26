@@ -1,0 +1,34 @@
+{% load static %}
+
+<style>
+    .header {
+        overflow: hidden;
+        background-color: #01579B;
+        width: 150em;
+        padding: 5px 5px;
+    }
+
+    .header span {
+        color: #FFFFFF;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        font-size: 2em; 
+        line-height: 25px;
+        border-radius: 4px;
+    }
+
+</style>
+<div class="header">
+    <div class="row">
+        <div class="align-self-center">
+            <image src="{% static 'images/logo.png' %}" width="45" height="45" style="margin-left: 2em;"></i>
+        </div>
+        <div class="align-self-center">
+            <span style="margin-top: 2em">CGPE</span>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+{% endblock %}
