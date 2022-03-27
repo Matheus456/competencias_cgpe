@@ -84,7 +84,7 @@
           
           <h1 class="subclass-title">- Soft Skills</h1>
           {% for skill in colaborador_softs %}
-            {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft subtitles=subtitles_default %}
+            {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft subtitles=skill.soft_skill|return_scale %}
 
           {% endfor %}
           
@@ -95,7 +95,7 @@
               {% endif %}
               
               {% update_value skill.hard_skill.subarea.nome as subarea %}
-              {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard subtitles=subtitles_default %}
+              {% include "./_input_emojis.html" with tipo='hard' nome=skill.hard_skill.nome id=skill.hard_skill.id score=skill.score_hard subtitles=skill.hard_skill|return_scale %}
             {% endfor %}
           {% endwith %}
           

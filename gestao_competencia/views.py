@@ -30,7 +30,6 @@ def formulario_competencias(request, id):
         'colaborador': colaborador,
         'colaborador_softs': colaborador_soft,
         'colaborador_hards': colaborador_hard,
-        'subtitles_default': ["Nenhuma Experiência", "", "Alguma Experiência", "", "Bastante Experiência"]
     })
 
 def avaliar_compentecias(request, id):
