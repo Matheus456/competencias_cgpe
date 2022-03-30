@@ -1,0 +1,38 @@
+<style>
+    #tooltip {
+      position: absolute;
+      width: 271px;
+      height: auto;
+      padding: 2px;
+      background-color: #ffffff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      z-index: 9999999999
+    }
+    
+    #tooltip.hidden {
+      opacity: 0;
+    }
+    
+    #tooltip p {
+      font-family: Futura;
+      font-size: 1em;
+    }
+        
+    span {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 17px;
+    }
+    
+</style>
+
+<div id="tooltip" class="hidden">
+  <p>
+    <center><strong><span id="name"></span></strong></center>
+  </p>
+</div>
