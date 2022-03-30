@@ -1,0 +1,52 @@
+{% load custom_tags %}
+
+<style>
+  ::-webkit-scrollbar {
+    width: 0.6em;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px gray;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #025ca4; 
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #025ca4; 
+  }
+
+  .skill-area {
+    margin: 1em 1em 1em 1em;
+    padding: 1.5em;
+    border-radius: 0.5em;
+    background-color: #D6EAFC;
+  }
+    
+  .skill-area-container {
+    max-height: 40em;
+    overflow-y: auto;
+  }
+</style>
+
+<div class="skill-area-container">
+  {% with area="" %}
+  {% for colaborador in colaboradores %}
+      {% if area != colaborador.area.nome %}
+        {% if area != "" %}
+          </div>
+          </ul>
+        {% endif %}
+        <div class="skill-area">
+          <h6>{{ colaborador.area.nome }}</h6>
+          <ul>
+      {% endif %}
+
+      <li>{{ colaborador.nome }}</li>
+      {% update_value colaborador.area.nome as area %}
+    {% endfor %}
+  {% endwith %}
+</div>
