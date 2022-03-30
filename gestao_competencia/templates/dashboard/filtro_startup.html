@@ -1,0 +1,140 @@
+{% extends 'base/header.html' %}
+
+{% block content %}
+  {% load static %}
+  {% load custom_tags %}
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <script src="{% static 'js/d3js_v7_3.js' %}"></script>
+
+  <style>
+    .input-startup {
+      background-color: white;
+      border-radius: 0.3em;
+      width: 50em;
+    }
+
+    .badge {
+      height: 10em;
+      width: 100%;
+      background-color: white;
+      border-radius: 0.3em;
+    }
+
+    .collaborators-list {
+      background-color: white;
+      height: 43em;
+      border-radius: 0.3em;
+    }
+
+    .skills-graph {
+      background-color: white;
+      height: 15em;
+      width: 100%;
+      border-radius: 0.3em;
+    }
+
+    .bubble-graph {
+      background-color: white;
+      height: 27em;
+      border-radius: 0.3em;
+    }
+
+    .badge-line {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+  </style>
+
+  <body style="overflow: hidden; background-color: #EFF3F9;">
+    <div>
+      <div class="row badge-line" style="margin-left: 0em;">
+        <div class="col-5">
+          <form>
+            <select name="id" onchange="this.form.submit()" class="input-startup">
+              <option disabled selected value> -- Selecione uma startup -- </option>
+              {% for startup in startups %}
+                <option value="{{startup.id}}" {% if startup_selected.id == startup.id %} selected {% endif %}
+                  >
+                  {{startup.nome}}
+                </option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+      </div>
+      
+      <div class="row badge-line" style="margin-left: 0em;">
+        <div class="col-3">
+          <div class="badge">
+            Total Colaboradores
+            <div>
+              <h1>{{ colaboradores|length   }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="badge">
+            Total Áreas
+            <div>
+              <h1>{{ areas|length }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="badge">
+            Total Hard Skills
+            <div>
+              <h1>{{ hard_skills|length }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="badge">
+            Total Soft Skills
+            <div>
+              <h1>{{ soft_skills|length }}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-9">
+          <div class="row" style="margin-left: 0em;">
+            <div class="col-12">
+              <div class="bubble-graph">
+                Gráfico bolha das sub-áreas
+                {% include "./_bubble_chart.html" with array_bubble=array_bubble%}
+              </div>
+            </div>
+          </div>
+          <div class="row badge-line" style="margin-left: 0em;">
+            <div class="col-6">
+              <div class="skills-graph">
+                <h6>Skills absurdas</h6>
+                {% include "./_bar_chart.html" with id='graph2' %}
+              </div>
+            </div>
+            <div class="col-6" style="margin-right: 0em;">
+              <div class="skills-graph">
+                graphs
+                {% include "./_bar_chart.html" with id='graph1' %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="collaborators-list">
+            Colaboradores por área
+            {% include "./_list.html" with colaboradores=colaboradores%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+{% endblock content %}
+
+
