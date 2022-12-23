@@ -1,6 +1,15 @@
 {% load static %}
 <script src="{% static 'js/d3js_v7_3.js' %}"></script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Tulpen+One&family=Wire+One&display=swap" rel="stylesheet">
+<style>
+  .font-bubble {
+    font-family: 'Tulpen One', cursive;
+    font-family: 'Wire One', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: black;
+  }
+</style>
 <div id = 'vis'></div>
 <meta charset="utf-8">
 {% include "./_tooltip.html"%}
@@ -41,9 +50,9 @@ function bubbleChart() {
   simulation.stop();
 
   // set up colour scale
-  const fillColour = d3.scaleOrdinal()
-  	.domain(["1", "2", "3", "5", "99"])
-  	.range(["#FF0000", "#FFB803", "#367EEB", "#04D361", "#AAAAAA"]);
+  var fillColour = d3.scaleOrdinal()
+  	.domain([1, 2, 3, 4, 5])
+  	.range(["#FF0000", "#ff9446", "#ffd846", "#aeff46", "#32bf44"]);
 
   // data manipulation function takes raw data from csv and converts it into an array of node objects
   // each node will store data and visualisation values to draw a bubble
@@ -56,8 +65,8 @@ function bubbleChart() {
 
     // size bubbles based on area
     const radiusScale = d3.scaleSqrt()
-      .domain([-1, maxSize])
-      .range([0, 35])
+      .domain([0, maxSize])
+      .range([0, 50])
 
     // use map() to convert raw data into node data
     const myNodes = rawData.map(d => ({
@@ -93,7 +102,7 @@ function bubbleChart() {
       .append('circle')
       .classed('bubble', true)
       .attr('r', d => d.radius)
-      .attr('fill', d => fillColour(d.groupid))
+      .attr('fill', d => fillColour(Math.floor(d.size)))
       .style("stroke", "black")
       .style("stroke-width", 0.5)
       
@@ -105,8 +114,11 @@ function bubbleChart() {
       d3.select("#tooltip")
           .style("left", event.pageX + "px")
           .style("top", (event.pageY-208) + "px")
-          .select("#name")
+      d3.select("#name")
           .text(d.nome);
+      d3.select("#score")
+          .text("Média do score: " + d.size);
+
     })
 
     bubbles.on("mouseout", function(event, d) {
@@ -119,10 +131,13 @@ function bubbleChart() {
       .append('text')
       .attr('dy', '.3em')
       .style('text-anchor', 'middle')
-      .style('font-size', 10)
+      .classed("font-bubble", true)
       .text(d => {
         if(d.size > 0) {
-          return d.id
+          if (d.nome.length > 18)
+            return d.nome.substr(0,15) + "..."
+          else
+            return d.nome
         }
       })
 
@@ -133,8 +148,10 @@ function bubbleChart() {
       d3.select("#tooltip")
           .style("left", event.pageX + "px")
           .style("top", (event.pageY-208) + "px")
-          .select("#name")
+      d3.select("#name")
           .text(d.nome);
+      d3.select("#score")
+          .text("Média do score: " + d.size);
     })
 
     labels.on("mouseout", function(event, d) {
@@ -181,7 +198,13 @@ function display(data) {
 data = {{array_bubble|safe}}
 
 display(data);
-
+const fillColour = d3.scaleOrdinal()
+  	.domain([1, 2, 3, 4, 5])
+  	.range(["#FF0000", "#FFB803", "#367EEB", "#04D361", "#AAAAAA"]);
+console.log(fillColour(1,8))
+console.log(fillColour(2,8))
+console.log(fillColour(3))
+console.log(fillColour(4))
 // load data
 
 </script>

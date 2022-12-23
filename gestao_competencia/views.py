@@ -59,16 +59,12 @@ def dashboard_startup(request):
         try:
             nome = SubArea.objects.get(id=sub_area_avg[0]).nome
             if nome:
-                hash_bubble = {"nome": nome, "id": sub_area_avg[0], "groupid": index, "size": sub_area_avg[1]}
+                hash_bubble = {"nome": nome, "id": sub_area_avg[0], "groupid": index, "size": round(sub_area_avg[1], 2)}
                 array_bubble.append(hash_bubble)
         except SubArea.DoesNotExist:
           pass
 
     sub_areas_objects = SubArea.objects.filter(id__in = sub_areas)
-
-    print("TESTE")
-    print(array_bubble)
-    print("TESTE")
 
 
     return render(request, 'dashboard/filtro_startup.html',
