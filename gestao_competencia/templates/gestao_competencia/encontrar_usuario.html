@@ -61,8 +61,10 @@
           </div>
           <div class="row justify-content-center">
             {% if mensagem %}
-                <h2 class="ui dividing header">{{ mensagem }}</h2>
+              <h4 class="ui dividing header" style="color: #ffc860">{{ mensagem }}</h4>
             {% endif %}
+          </div>
+          <div class="row justify-content-center">
             <form action="/">
               <input required type="text" id="email" name="email" class="form-control" placeholder="Email ou código">
               <br>
