@@ -4,9 +4,9 @@
 <style>
   .font-bubble {
     font-family: 'Tulpen One', cursive;
-    font-family: 'Wire One', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
+    /* font-family: 'Wire One', sans-serif; */
+    /* font-weight: 900; */
+    font-size: 20px;
     color: black;
   }
 </style>
@@ -17,15 +17,15 @@
 <script>
 // bubbleChart creation function; instantiate new bubble chart given a DOM element to display it in and a dataset to visualise
 function bubbleChart() {
-  const width = 1300;
-  const height = 400;
+  const width = 1500;
+  const height = 800;
 
   // location to centre the bubbles
-  const centre = { x: width/2, y: height/2.5 };
+  const centre = { x: width/2+800, y: height/2.5 };
 
   // strength to apply to the position forces
-  const forceStrengthY = 0.04;
-  const forceStrengthX = 0.009;
+  const forceStrengthY = 0.06;
+  const forceStrengthX = 0.003;
 
   // these will be set in createNodes and chart functions
   let svg = null;
@@ -66,7 +66,7 @@ function bubbleChart() {
     // size bubbles based on area
     const radiusScale = d3.scaleSqrt()
       .domain([0, maxSize])
-      .range([0, 50])
+      .range([0, 80])
 
     // use map() to convert raw data into node data
     const myNodes = rawData.map(d => ({
@@ -134,8 +134,8 @@ function bubbleChart() {
       .classed("font-bubble", true)
       .text(d => {
         if(d.size > 0) {
-          if (d.nome.length > 18)
-            return d.nome.substr(0,15) + "..."
+          if (d.nome.length > 25)
+            return d.nome.substr(0,23) + "..."
           else
             return d.nome
         }

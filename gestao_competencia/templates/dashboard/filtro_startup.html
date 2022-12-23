@@ -38,10 +38,11 @@
 
     .bubble-graph {
       background-color: white;
-      height: 27em;
+      height: 42em;
       border-radius: 0.3em;
+      padding: 1em;
     }
-
+      
     .badge-line {
       margin-top: 0.4em;
       margin-bottom: 1em;
@@ -111,22 +112,10 @@
               <div class="row" style="margin-left: 0em;">
                 <div class="col-12">
                   <div class="bubble-graph">
-                    Gráfico bolha das sub-áreas
+                    <h3>
+                      Gráfico bolha das sub-áreas
+                    </h3>
                     {% include "./_bubble_chart.html" with array_bubble=array_bubble%}
-                  </div>
-                </div>
-              </div>
-              <div class="row badge-line" style="margin-left: 0em;">
-                <div class="col-6">
-                  <div class="skills-graph">
-                    <h6>Skills absurdas</h6>
-                    {% include "./_bar_chart.html" with id='graph2' %}
-                  </div>
-                </div>
-                <div class="col-6" style="margin-right: 0em;">
-                  <div class="skills-graph">
-                    graphs
-                    {% include "./_bar_chart.html" with id='graph1' %}
                   </div>
                 </div>
               </div>
