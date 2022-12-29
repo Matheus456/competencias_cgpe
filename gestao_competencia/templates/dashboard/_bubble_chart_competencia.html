@@ -52,7 +52,7 @@ function bubbleChart() {
   // set up colour scale
   var fillColour = d3.scaleOrdinal()
   	.domain([1, 2, 3, 4, 5])
-  	.range(["#FF0000", "#ff9446", "#ffd846", "#aeff46", "#32bf44"]);
+  	.range(["#ef476f", "#ffd166", "#06d6a0", "#118ab2", "#073b4c"]);
 
   // data manipulation function takes raw data from csv and converts it into an array of node objects
   // each node will store data and visualisation values to draw a bubble
@@ -104,7 +104,7 @@ function bubbleChart() {
       .attr('r', d => d.radius)
       .attr('fill', d => fillColour(Math.floor(d.size)))
       .style("stroke", "black")
-      .style("stroke-width", 0.5)
+      .style("stroke-width", 0.8)
       
 
     bubbles.on("mouseover", function(event, d) {
@@ -134,8 +134,8 @@ function bubbleChart() {
       .classed("font-bubble", true)
       .text(d => {
         if(d.size > 0) {
-          if (d.nome.length > 25)
-            return d.nome.substr(0,23) + "..."
+          if (d.nome.length > 23)
+            return d.nome.substr(0,21) + "..."
           else
             return d.nome
         }

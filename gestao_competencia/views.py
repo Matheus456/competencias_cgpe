@@ -1,6 +1,6 @@
 from ast import Sub
 from django.shortcuts import render, redirect
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Case, When
 from numpy import array
 from .models import *
 
@@ -49,8 +49,6 @@ def dashboard_startup(request):
     soft_skills = colaboradores.values_list('soft_skills', flat=True).distinct()
     hard_skills = colaboradores.values_list('hard_skills', flat=True).distinct()
 
-
-    sub_areas = colaboradores.values_list('hard_skills__subarea', flat=True).distinct()
     sub_areas_avg = ColaboradorHardSkill.objects.filter(hard_skill__in=hard_skills).values_list('hard_skill__subarea').annotate(dcount=Avg('score_hard'))
 
     array_bubble = []
@@ -64,9 +62,6 @@ def dashboard_startup(request):
         except SubArea.DoesNotExist:
           pass
 
-    sub_areas_objects = SubArea.objects.filter(id__in = sub_areas)
-
-
     return render(request, 'dashboard/filtro_startup.html',
         {
             'startups': startups,
@@ -75,6 +70,46 @@ def dashboard_startup(request):
             'areas': areas,
             'soft_skills': soft_skills,
             'hard_skills': hard_skills,
+            'array_bubble': array_bubble,
+        }
+    )   
+
+def dashboard_competencias(request):
+    hard_skills = HardSkill.objects.all()
+    hard_skill_selected = hard_skills.get(id=request.GET['id'])
+    colaborador_hard_skill = ColaboradorHardSkill.objects.filter(hard_skill_id = hard_skill_selected, colaborador__startup__isnull=False).order_by('score_hard')
+    colaboradores_ids = colaborador_hard_skill.values('colaborador_id')
+
+    scores_avg = colaborador_hard_skill.values_list('colaborador__startup').annotate(dcount=Avg('score_hard'))
+    preserved = Case(*[When(pk=pk['colaborador_id'], then=pos) for pos, pk in enumerate(colaboradores_ids)])
+    print(preserved)
+    colaboradores = Colaborador.objects.filter(id__in = colaboradores_ids).order_by(preserved)
+
+    areas = colaboradores.values_list('area', flat=True).distinct()
+    startups = colaboradores.values_list('startup', flat=True).distinct()
+
+    hard_skill_score = round(colaborador_hard_skill.aggregate(Avg('score_hard'))['score_hard__avg'], 2)
+
+    array_bubble = []
+    
+    for index, score_avg in enumerate(scores_avg):
+        try:
+            nome = Startup.objects.get(id=score_avg[0]).nome
+            if nome:
+                hash_bubble = {"nome": nome, "id": score_avg[0], "groupid": index, "size": round(score_avg[1], 2)}
+                array_bubble.append(hash_bubble)
+        except SubArea.DoesNotExist:
+          pass
+
+    return render(request, 'dashboard/filtro_competencia.html',
+        {
+            'hard_skills': hard_skills,
+            'hard_skill_score': hard_skill_score,
+            'hard_skill_selected': hard_skill_selected,
+            'colaborador_hard_skill': colaborador_hard_skill,
+            'colaboradores': colaboradores,
+            'areas': areas,
+            'startups': startups,
             'array_bubble': array_bubble,
         }
     )

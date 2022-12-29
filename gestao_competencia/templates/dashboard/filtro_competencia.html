@@ -63,10 +63,10 @@
               <form>
                 <select name="id" onchange="this.form.submit()" class="input-startup">
                   <option disabled selected value> -- Selecione uma startup -- </option>
-                  {% for startup in startups %}
-                    <option value="{{startup.id}}" {% if startup_selected.id == startup.id %} selected {% endif %}
+                  {% for hard_skill in hard_skills %}
+                    <option value="{{hard_skill.id}}" {% if hard_skill_selected.id == hard_skill.id %} selected {% endif %}
                       >
-                      {{startup.nome}}
+                      {{hard_skill.nome}} ({{hard_skill.area}})
                     </option>
                   {% endfor %}
                 </select>
@@ -74,7 +74,7 @@
             </div>
           </div>    
           <div class="row">
-            <div class="col-3">
+            <div class="col-4">
               <div class="badge">
                 Total Colaboradores
                 <div style="height: 2em;">
@@ -82,27 +82,19 @@
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <div class="badge">
-                Total Áreas
+                Total Startups
                 <div>
-                  <h1 class="badge-text">{{ areas|length }}</h1>
+                  <h1>{{ startups|length }}</h1>
                 </div>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-4">
               <div class="badge">
-                Total Hard Skills
+                Pontuação Média
                 <div>
-                  <h1 class="badge-text">{{ hard_skills|length }}</h1>
-                </div>
-              </div>
-            </div>
-            <div class="col-3">
-              <div class="badge">
-                Total Soft Skills
-                <div>
-                  <h1 class="badge-text">{{ soft_skills|length }}</h1>
+                  <h1>{{ hard_skill_score }}</h1>
                 </div>
               </div>
             </div>
@@ -115,7 +107,7 @@
                     <h3>
                       Gráfico bolha das sub-áreas
                     </h3>
-                    {% include "./_bubble_chart_startup.html" with array_bubble=array_bubble%}
+                    {% include "./_bubble_chart_competencia.html" with array_bubble=array_bubble%}
                   </div>
                 </div>
               </div>
@@ -126,16 +118,15 @@
           <div class="collaborators-list">
             <div class="row">
               <div class="col-12">
-                <p class="text-center">Colaboradores por área</p>
+                <p class="text-center">Colaboradores por startup</p>
               </div>
             </div>
-            {% include "./_list_colaborador_area.html" with colaboradores=colaboradores%}
+            {% include "./_list_colaborador_startup.html" with colaboradores=colaboradores%}
           </div>
         </div>
       </div>
-
     </div>
   </body>
-{% endblock content %}
+  {% endblock content %}
 
 
