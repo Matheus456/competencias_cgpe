@@ -5,6 +5,7 @@
 {% load custom_tags %}
 
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@300;400&family=Six+Caps&family=Tulpen+One&family=Wire+One&display=swap" rel="stylesheet">  
 
 <style>
   .form-container {
@@ -25,6 +26,7 @@
     margin-left: 2em;
     margin-top: 0.7em;
     margin-bottom: 0.7em;
+    font-family: 'Lato', sans-serif;
   }
 
   .btn-salvar {
@@ -35,7 +37,8 @@
   }
 
   .user-description {
-    font-size: 1.5em
+    font-size: 1.5em;
+    font-family: 'Lato', sans-serif;
   }
 
   ::-webkit-scrollbar {
@@ -82,7 +85,6 @@
           <h1 class="subclass-title">- Soft Skills</h1>
           {% for skill in colaborador_softs %}
             {% include "./_input_emojis.html" with tipo='soft' nome=skill.soft_skill.nome id=skill.soft_skill.id score=skill.score_soft subtitles=skill.soft_skill|return_scale %}
-
           {% endfor %}
           
           {% with subarea="" %}
@@ -98,8 +100,8 @@
           
         </form> 
       </div>
-      <div class="col-11 d-flex justify-content-end">
-        <button type="submit" form="avaliar_competencias" class="btn btn-primary btn-salvar">Salvar</button>
+      <div class="col-12 d-flex justify-content-end">
+        <button type="submit" form="avaliar_competencias" class="btn btn-primary btn-salvar user-description">Salvar</button>
       </div>
     </div>
   </body>

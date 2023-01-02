@@ -27,8 +27,18 @@
   }
     
   .skill-area-container {
-    max-height: 40em;
+    max-height: 48em;
     overflow-y: auto;
+  }
+
+  .title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3em;
+  }
+
+  .colaboradores {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
   }
 </style>
 
@@ -38,15 +48,15 @@
       {% if startup != colaborador.startup.nome %}
         {% if startup != "" %}
           </div>
-          </ul>
+          </ul> 
         {% endif %}
         <div class="skill-area">
-          <h6>{{ colaborador.startup.nome }}</h6>
+          <h6 class="title">{{ colaborador.startup.nome }}</h6>
           <ul>
       {% endif %}
 
-      <li>{{ colaborador.nome }}</li>
-      {% update_value colaborador.startup.nome as startup %}
+      <li class="colaboradores">{{ colaborador.nome }}</li> 
+      {% update_value colaborador.startup.nome as startup %}  
     {% endfor %}
   {% endwith %}
 </div>

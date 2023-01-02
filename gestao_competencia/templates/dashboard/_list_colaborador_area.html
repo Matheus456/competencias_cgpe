@@ -30,6 +30,21 @@
     max-height: 50em;
     overflow-y: auto;
   }
+
+  .skill-area-container {
+    max-height: 48em;
+    overflow-y: auto;
+  }
+
+  .title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3em;
+  }
+
+  .colaboradores {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2em;
+  }
 </style>
 
 <div class="skill-area-container">
@@ -41,11 +56,11 @@
           </ul>
         {% endif %}
         <div class="skill-area">
-          <h6>{{ colaborador.area.nome }}</h6>
+          <h6 class="title">{{ colaborador.area.nome }}</h6>
           <ul>
       {% endif %}
 
-      <li>{{ colaborador.nome }}</li>
+      <li class="colaboradores">{{ colaborador.nome }}</li>
       {% update_value colaborador.area.nome as area %}
     {% endfor %}
   {% endwith %}

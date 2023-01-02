@@ -6,7 +6,7 @@
 
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <script src="{% static 'js/d3js_v7_3.js' %}"></script>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@300;400&family=Six+Caps&family=Tulpen+One&family=Wire+One&display=swap" rel="stylesheet">  
   <style>
     .input-startup {
       background-color: white;
@@ -49,9 +49,20 @@
     }
 
     .badge-text {
-      margin-top: 0.6em;
+      margin-top: 0.4em;
+      font-family: 'Anton', sans-serif;
     }
 
+    .font-badges {
+      margin-top: 0.2em;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .font-colaboradores {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.5em;
+      font-weight: 600;
+    }
   </style>
 
   <body style="overflow: hidden; background-color: #EFF3F9;">
@@ -76,7 +87,11 @@
           <div class="row">
             <div class="col-3">
               <div class="badge">
-                Total Colaboradores
+                <div class="row justify-content-center align-self-center"> 
+                  <span class="font-badges">Total Colaboradores</span>
+                  &nbsp&nbsp&nbsp&nbsp&nbsp
+                  <image src="{% static 'images/dashboards/colaborador.png' %}" width="25" height="25"></i>
+                </div>
                 <div style="height: 2em;">
                   <h1 class="badge-text">{{ colaboradores|length   }}</h1>
                 </div>
@@ -84,7 +99,11 @@
             </div>
             <div class="col-3">
               <div class="badge">
-                Total Áreas
+                <div class="row justify-content-center align-self-center"> 
+                  <span class="font-badges">Total Áreas</span>
+                  &nbsp&nbsp&nbsp&nbsp&nbsp
+                  <image src="{% static 'images/dashboards/area.png' %}" width="25" height="25"></i>
+                </div>
                 <div>
                   <h1 class="badge-text">{{ areas|length }}</h1>
                 </div>
@@ -92,7 +111,12 @@
             </div>
             <div class="col-3">
               <div class="badge">
-                Total Hard Skills
+                <div class="row justify-content-center align-self-center"> 
+                  <span class="font-badges">Total Hard Skills</span>
+                  &nbsp&nbsp&nbsp&nbsp&nbsp
+                  <image src="{% static 'images/dashboards/hard_skill.png' %}" width="25" height="25"></i>
+                </div>
+
                 <div>
                   <h1 class="badge-text">{{ hard_skills|length }}</h1>
                 </div>
@@ -100,7 +124,13 @@
             </div>
             <div class="col-3">
               <div class="badge">
-                Total Soft Skills
+                
+                <div class="row justify-content-center align-self-center"> 
+                  <span class="font-badges">Total Soft Skills</span>
+                  &nbsp&nbsp&nbsp&nbsp&nbsp
+                  <image src="{% static 'images/dashboards/soft_skill.png' %}" width="25" height="25"></i>
+                </div>
+
                 <div>
                   <h1 class="badge-text">{{ soft_skills|length }}</h1>
                 </div>
@@ -112,7 +142,7 @@
               <div class="row" style="margin-left: 0em;">
                 <div class="col-12">
                   <div class="bubble-graph">
-                    <h3>
+                    <h3 class="font-colaboradores">
                       Gráfico bolha das sub-áreas
                     </h3>
                     {% include "./_bubble_chart_startup.html" with array_bubble=array_bubble%}
@@ -126,7 +156,7 @@
           <div class="collaborators-list">
             <div class="row">
               <div class="col-12">
-                <p class="text-center">Colaboradores por área</p>
+                <p class="text-center font-colaboradores">Colaboradores por área</p>
               </div>
             </div>
             {% include "./_list_colaborador_area.html" with colaboradores=colaboradores%}

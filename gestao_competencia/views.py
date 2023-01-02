@@ -87,19 +87,21 @@ def dashboard_competencias(request):
 
     areas = colaboradores.values_list('area', flat=True).distinct()
     startups = colaboradores.values_list('startup', flat=True).distinct()
-
-    hard_skill_score = round(colaborador_hard_skill.aggregate(Avg('score_hard'))['score_hard__avg'], 2)
-
+    hard_skill_score = 0
     array_bubble = []
-    
-    for index, score_avg in enumerate(scores_avg):
-        try:
-            nome = Startup.objects.get(id=score_avg[0]).nome
-            if nome:
-                hash_bubble = {"nome": nome, "id": score_avg[0], "groupid": index, "size": round(score_avg[1], 2)}
-                array_bubble.append(hash_bubble)
-        except SubArea.DoesNotExist:
-          pass
+    if colaboradores.count() > 0:
+        hard_skill_score = round(colaborador_hard_skill.aggregate(Avg('score_hard'))['score_hard__avg'], 2)
+
+        array_bubble = []
+        
+        for index, score_avg in enumerate(scores_avg):
+            try:
+                nome = Startup.objects.get(id=score_avg[0]).nome
+                if nome:
+                    hash_bubble = {"nome": nome, "id": score_avg[0], "groupid": index, "size": round(score_avg[1], 2)}
+                    array_bubble.append(hash_bubble)
+            except SubArea.DoesNotExist:
+                pass
 
     return render(request, 'dashboard/filtro_competencia.html',
         {
